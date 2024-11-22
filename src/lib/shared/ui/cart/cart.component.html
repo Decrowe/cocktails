@@ -1,0 +1,7 @@
+<mat-chip-set class="w-full overflow-x-scroll">
+  @for (cocktail of cart(); track cocktail.name) {
+  <mat-chip (removed)="onRemove.emit(cocktail)">
+    {{cocktail.name}}<mat-icon matChipRemove>cancel</mat-icon>
+  </mat-chip>
+  }
+</mat-chip-set>
