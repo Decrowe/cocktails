@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "launch": "pnpx http-server -p 8080 -c-1 dist/cocktails/browser",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
