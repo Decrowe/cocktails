@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 export const AppRoutes = {
   cocktails: 'cockatils',
+  cart: 'cart',
   queue: 'queue',
 } as const;
 
@@ -12,16 +13,17 @@ export const routes: Routes = [
   {
     path: AppRoutes.cocktails,
     loadComponent: () =>
-      import('../lib/features/cocktails/cocktails.component').then(
-        (module) => module.CocktailsComponent
-      ),
+      import('../lib/features').then((module) => module.CocktailsComponent),
+  },
+  {
+    path: AppRoutes.cart,
+    loadComponent: () =>
+      import('../lib/shared/ui').then((module) => module.CartComponent),
   },
   {
     path: AppRoutes.queue,
     loadComponent: () =>
-      import('../lib/features/queue/queue.component').then(
-        (module) => module.QueueComponent
-      ),
+      import('../lib/features').then((module) => module.QueueComponent),
   },
   { path: '**', redirectTo: AppRoutes.cocktails },
 ];

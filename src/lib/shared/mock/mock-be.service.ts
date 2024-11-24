@@ -34,12 +34,8 @@ function ingredientMapper(dto: any): Ingredient[] {
     if (dto[ingredientKey] !== null) {
       const ingredient = dto[ingredientKey];
 
-      console.log('Ingreadient Key: ' + ingredientKey);
       const suffix = ingredientKey.slice(ingredientKey.length - 1);
-      console.log('suffix: ' + suffix);
       const measureKey = measurePrefix + suffix;
-
-      console.log('Measure Key: ' + measureKey);
 
       const measure = dto[measureKey];
 

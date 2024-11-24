@@ -9,6 +9,7 @@ import { Cocktail } from '../../shared/models';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CocktailItemSelectionComponent } from '../../shared/ui';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CartSerivce } from '../../shared';
 
 @Component({
   selector: 'app-cocktails',
@@ -23,8 +24,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CocktailsComponent {
   private facade = inject(CocktailsFacade);
+  private cart = inject(CartSerivce);
 
-  cart = this.facade.cart;
   cocktails = this.facade.cocktails;
 
   constructor() {
@@ -32,11 +33,7 @@ export class CocktailsComponent {
   }
 
   onAdd(cocktail: Cocktail) {
-    this.facade.addToCart(cocktail);
-  }
-
-  onRemove(cocktail: Cocktail) {
-    this.facade.removeFromCart(cocktail);
+    this.cart.add(cocktail);
   }
 
   inCart(cocktail: Cocktail): number {

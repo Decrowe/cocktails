@@ -1,7 +1,46 @@
-<mat-chip-set class="w-full overflow-x-scroll">
-  @for (cocktail of cart(); track cocktail.name) {
-  <mat-chip (removed)="onRemove.emit(cocktail)">
-    {{cocktail.name}}<mat-icon matChipRemove>cancel</mat-icon>
-  </mat-chip>
-  }
-</mat-chip-set>
+@if (positions().length) {
+<div class="h-full flex flex-col justify-between gap-2">
+
+  <mat-card appearance="raised" class="overflow-scroll">
+    <mat-card-header>
+      <mat-card-title>Order</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="flex flex-col gap-10">
+
+        @for (position of positions(); track position.cocktail.name) {
+
+        <div class="positions-entry flex items-center">
+          @if (position.cocktail.imgSrc; as src) {
+          <img [src]="src" alt="preview image" class="rounded-full h-20">
+          }
+
+          <div class="grow flex flex-col p-4">
+            <p>{{position.cocktail.name}}</p>
+            <div class="flex items-center gap-2 justify-end">
+              <p class="positions-entry-count">{{position.count}}</p>
+              <button mat-mini-fab (click)="decrease(position)"><mat-icon>remove</mat-icon></button>
+              <button mat-mini-fab (click)="increase(position)"><mat-icon>add</mat-icon></button>
+              <button mat-icon-button="ml-4" (click)="remove(position)"><mat-icon>clear</mat-icon></button>
+            </div>
+          </div>
+        </div>}
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <div class="flex shrink-0 gap-4">
+    <button mat-raised-button class="flex-1 mt-4" (click)="clear()">Clear Cart<mat-icon>cancel</mat-icon></button>
+    <button mat-raised-button class="flex-1 mt-4">
+      Send Order<mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>
+} @else {
+<div class="h-full flex flex-col items-center justify-center" [routerLink]="appRoutes.cocktails">
+  <button mat-raised-button>
+    You seem to be thirsty! Let´s change this!
+  </button>
+</div>
+}

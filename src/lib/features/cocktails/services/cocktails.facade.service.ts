@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Cocktail } from '../../../shared/models';
 import { CocktailsDataServiceIT } from './cocktail.data.injection-token';
 import { first } from 'rxjs';
+import { Cocktail } from '../../../shared';
 
 @Injectable({ providedIn: 'root' })
 export class CocktailsFacade {

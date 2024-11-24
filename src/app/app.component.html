@@ -12,12 +12,16 @@
     <router-outlet></router-outlet>
   </div>
 
-  <mat-toolbar class="shrink-0 flex justify-around">
-    <button mat-icon-button [routerLink]="'/queue'">
-      <mat-icon>list</mat-icon>
-    </button>
-    <button mat-icon-button [routerLink]="'/cocktails'">
+  <mat-toolbar class="shrink-0 flex justify-center gap-8">
+
+    <button mat-icon-button [routerLink]="appRoutes.cocktails">
       <mat-icon>local_bar</mat-icon>
+    </button>
+    <button mat-icon-button [routerLink]="appRoutes.cart" [matBadge]="cartCount()" [matBadgeHidden]="!cartCount()">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-icon-button [routerLink]="appRoutes.queue">
+      <mat-icon>list</mat-icon>
     </button>
   </mat-toolbar>
 </div>
