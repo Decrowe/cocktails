@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ICocktailsDataService } from './cocktails.data.interface';
 import { Cocktail } from '../../../shared/models';
 import { MockBE } from '../../../shared/mock/mock-be.service';
+import { NewOrder } from '../../../shared/models/cocktail/new-order';
 
 @Injectable({ providedIn: 'root' })
 export class CocktailsDataMockService implements ICocktailsDataService {
@@ -11,9 +12,8 @@ export class CocktailsDataMockService implements ICocktailsDataService {
   getCocktails(): Observable<Cocktail[]> {
     return this.mockBE.getCocktails();
   }
-  // cocktails$: Observable<Cocktail[]> = of(MOCK_COCKTAILS);
 
-  sendOrders(cocktails: Cocktail[]): void {
-    this.mockBE.sendOrders(cocktails);
+  sendOrder(order: NewOrder): void {
+    this.mockBE.sendOrder(order);
   }
 }

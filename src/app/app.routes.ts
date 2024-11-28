@@ -24,7 +24,7 @@ export const routes: Routes = [
   {
     path: AppRoutes.cart,
     loadComponent: () =>
-      import('../lib/shared/ui').then((module) => module.CartComponent),
+      import('../lib/features').then((module) => module.CartComponent),
   },
   {
     path: AppRoutes.queue,

@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { Cocktail } from '../../../shared/models';
+import { NewOrder } from '../../../shared/models/cocktail/new-order';
 
 export interface ICocktailsDataService {
   getCocktails(): Observable<Cocktail[]>;
 
-  sendOrders(cocktails: Cocktail[]): void;
+  sendOrder(order: NewOrder): void;
 }

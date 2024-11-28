@@ -1,11 +1,12 @@
+@if (cocktails().length) {
 <div class="overflow-scroll grid grid-cols-2 md:flex md:flex-wrap md:justify-around">
   @for (cocktail of cocktails(); track cocktail.id) {
   <app-cocktail-item-selection [cocktail]="cocktail" [count]="inCart(cocktail)"
     (onAdd)="onAdd(cocktail)"></app-cocktail-item-selection>
   }
 </div>
-@if (cocktails().length === 0) {
+} @else {
 <div class="flex flex-col gap-4 h-full w-full justify-center items-center">
-  <p class="cocktails-empty">The barkeeper is currently creating a cocktail collection!</p>
+  <p class="info-field">The barkeeper is currently creating a cocktail collection!</p>
 </div>
 }

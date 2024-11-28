@@ -4,11 +4,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AppRoutes } from './app.routes';
-import { CartSerivce } from '../lib/shared';
 import { MatBadgeModule } from '@angular/material/badge';
 import { filter, map } from 'rxjs';
 import { Event, RouterEvent, Router, RouterModule } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
+import { CartFacade } from '../lib/features/cart/services/cart.facade.service';
+import { QueueFacade } from '../lib/features/queue/services/queue.facade.service';
 @Component({
   selector: 'app-root',
   imports: [
@@ -23,11 +24,13 @@ import { TitleCasePipe } from '@angular/common';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  private cart = inject(CartSerivce);
   private router = inject(Router);
+  private cart = inject(CartFacade);
+  private queue = inject(QueueFacade);
 
   title = signal('');
   cartCount = this.cart.count;
+  queueCount = this.queue.count;
   appRoutes = AppRoutes;
 
   constructor() {

@@ -9,7 +9,7 @@ import { Cocktail } from '../../shared/models';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CocktailItemSelectionComponent } from '../../shared/ui';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CartSerivce } from '../../shared';
+import { CartFacade } from '../cart/services/cart.facade.service';
 
 @Component({
   selector: 'app-cocktails',
@@ -24,7 +24,7 @@ import { CartSerivce } from '../../shared';
 })
 export class CocktailsComponent {
   private facade = inject(CocktailsFacade);
-  private cart = inject(CartSerivce);
+  private cart = inject(CartFacade);
 
   cocktails = this.facade.cocktails;
 

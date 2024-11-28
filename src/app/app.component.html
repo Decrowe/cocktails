@@ -22,7 +22,7 @@
     <button mat-icon-button [routerLink]="appRoutes.cart" [matBadge]="cartCount()" [matBadgeHidden]="!cartCount()">
       <mat-icon>shopping_cart</mat-icon>
     </button>
-    <button mat-icon-button [routerLink]="appRoutes.queue">
+    <button mat-icon-button [routerLink]="appRoutes.queue" [matBadge]="queueCount()" [matBadgeHidden]="!queueCount()">
       <mat-icon>list</mat-icon>
     </button>
   </mat-toolbar>

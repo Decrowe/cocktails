@@ -1,0 +1,9 @@
+@mixin InfoField() {
+  .info-field {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+    border-radius: 6px;
+  }
+}

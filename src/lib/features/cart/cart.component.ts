@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatChipsModule } from '@angular/material/chips';
-import { CartSerivce } from '../../services';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { AppRoutes } from '../../../../app/app.routes';
-import { Position } from '../../models';
+import { CartFacade } from './services/cart.facade.service';
+import { AppRoutes } from '../../../app/app.routes';
+import { Position } from '../../shared';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +22,7 @@ import { Position } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartComponent {
-  private cart = inject(CartSerivce);
+  private cart = inject(CartFacade);
 
   appRoutes = AppRoutes;
   positions = this.cart.positions;
@@ -39,5 +38,8 @@ export class CartComponent {
   }
   clear() {
     this.cart.clear();
+  }
+  sendOrder() {
+    this.cart.sendOrder();
   }
 }

@@ -1,0 +1,8 @@
+Ordered by: {{order().orderer}}
+@for (cocktail of order().cocktails; track cocktail.id) {
+<p>{{cocktail.name}}: {{cocktail.count}}</p>
+}
+<div class="flex gap-4 mt-4">
+  <button mat-raised-button class="flex-1" (click)="rejected.emit(rejectResons.missingIngredients)">Reject</button>
+  <button mat-raised-button class="flex-1" (click)="completed.emit()">Completed</button>
+</div>

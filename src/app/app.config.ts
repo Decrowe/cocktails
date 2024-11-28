@@ -8,12 +8,20 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { CocktailsDataServiceIT } from '../lib/features/cocktails/services/cocktail.data.injection-token';
-import { CocktailsDataMockService } from '../lib/features/cocktails/services/cocktails.data.mock.service';
-import { CocktailsDataService } from '../lib/features/cocktails/services/cocktails.data.service';
-import { CollectionDataServiceIT } from '../lib/features/collection/services/collection.data.injection-token';
-import { CollectionDataMockService } from '../lib/features/collection/services/collection.data.mock.service';
-import { CollectionDataService } from '../lib/features/collection/services/collection.data.service';
+import {
+  CocktailsDataServiceIT,
+  CocktailsDataMockService,
+  CocktailsDataService,
+  CollectionDataServiceIT,
+  CollectionDataMockService,
+  CollectionDataService,
+  QueueDataServiceIT,
+  QueueDataMockService,
+  QueueDataService,
+  CartDataServiceIT,
+  CartDataMockService,
+  CartDataService,
+} from '../lib/features';
 
 const appProviders: Provider[] = [
   {
@@ -26,6 +34,14 @@ const appProviders: Provider[] = [
       ? CollectionDataMockService
       : CollectionDataService,
   },
+  {
+    provide: QueueDataServiceIT,
+    useExisting: isDevMode() ? QueueDataMockService : QueueDataService,
+  },
+  {
+    provide: CartDataServiceIT,
+    useExisting: isDevMode() ? CartDataMockService : CartDataService,
+  },
 ];
 
 export const appConfig: ApplicationConfig = {
@@ -35,5 +51,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     appProviders,
+    provideAnimationsAsync(),
   ],
 };

@@ -1,9 +1,13 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Cocktail, Position } from '../models';
-import { findIndex } from 'rxjs';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { findIndex, first } from 'rxjs';
+import { Cocktail, Position } from '../../../shared';
+import { CartDataServiceIT } from './cart.data.injection-token';
+import { OrderCocktail } from '../../../shared/models/queue';
 
 @Injectable({ providedIn: 'root' })
-export class CartSerivce {
+export class CartFacade {
+  private dataService = inject(CartDataServiceIT);
+
   private _positions = signal<Position[]>([]);
   positions = this._positions.asReadonly();
   count = computed(() =>
@@ -12,6 +16,7 @@ export class CartSerivce {
       0
     )
   );
+  private _orderer = signal('LUKAS');
 
   add(added: Cocktail) {
     const positions = this._positions();
@@ -66,5 +71,27 @@ export class CartSerivce {
     );
 
     return position ? position.count : 0;
+  }
+
+  sendOrder() {
+    const positions = this._positions();
+    if (!positions.length) return;
+    const cocktails = this._positions().map(
+      ({ cocktail, count }) =>
+        ({ count, id: cocktail.id, name: cocktail.name } as OrderCocktail)
+    );
+
+    const orderer = this._orderer();
+
+    const response = this.dataService.sendOrder({
+      cocktails,
+      orderer,
+    });
+
+    response.subscribe({
+      complete: () => {
+        this._positions.set([]);
+      },
+    });
   }
 }

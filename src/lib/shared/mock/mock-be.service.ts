@@ -1,8 +1,18 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Cocktail, Ingredient } from '../models';
-import { catchError, combineLatest, map, Observable, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
+  map,
+  Observable,
+  of,
+  Subject,
+} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Alphabete } from './alphabete';
+import { Order, OrderCocktail } from '../models/queue';
+import { NewOrder } from '../models/cocktail/new-order';
 
 function cocktailMapper(dto: any): Cocktail {
   return {
@@ -43,6 +53,9 @@ function ingredientMapper(dto: any): Ingredient[] {
 
 @Injectable({ providedIn: 'root' })
 export class MockBE {
+  private _orders = new BehaviorSubject<Order[]>([]);
+  orders$: Observable<Order[]> = this._orders.asObservable();
+
   private httpClient = inject(HttpClient);
   private collection = signal<string[]>([]);
 
@@ -95,7 +108,28 @@ export class MockBE {
     );
   }
 
-  sendOrders(cocktails: Cocktail[]) {
-    throw new Error('Method not implemented.');
+  sendOrder(order: NewOrder) {
+    const orders = this._orders.value;
+
+    const { cocktails, orderer } = order;
+    const id = `${orders.length + 1}`;
+
+    const newOrder: Order = { cocktails, orderer, id };
+    this._orders.next([...orders, newOrder]);
+  }
+
+  orderRejected(rejected: Order, rejectReason: string) {
+    const orders = this._orders.value.filter(
+      (order) => order.id !== rejected.id
+    );
+
+    this._orders.next([...orders]);
+  }
+  orderCompleted(completed: Order) {
+    const orders = this._orders.value.filter(
+      (order) => order.id !== completed.id
+    );
+
+    this._orders.next([...orders]);
   }
 }

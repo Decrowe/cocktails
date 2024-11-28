@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { CocktailsDataServiceIT } from './cocktail.data.injection-token';
+import { CocktailsDataServiceIT } from './cocktails.data.injection-token';
 import { first } from 'rxjs';
 import { Cocktail } from '../../../shared';
 
