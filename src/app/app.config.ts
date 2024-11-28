@@ -11,11 +11,20 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CocktailsDataServiceIT } from '../lib/features/cocktails/services/cocktail.data.injection-token';
 import { CocktailsDataMockService } from '../lib/features/cocktails/services/cocktails.data.mock.service';
 import { CocktailsDataService } from '../lib/features/cocktails/services/cocktails.data.service';
+import { CollectionDataServiceIT } from '../lib/features/collection/services/collection.data.injection-token';
+import { CollectionDataMockService } from '../lib/features/collection/services/collection.data.mock.service';
+import { CollectionDataService } from '../lib/features/collection/services/collection.data.service';
 
 const appProviders: Provider[] = [
   {
     provide: CocktailsDataServiceIT,
-    useClass: isDevMode() ? CocktailsDataMockService : CocktailsDataService,
+    useExisting: isDevMode() ? CocktailsDataMockService : CocktailsDataService,
+  },
+  {
+    provide: CollectionDataServiceIT,
+    useExisting: isDevMode()
+      ? CollectionDataMockService
+      : CollectionDataService,
   },
 ];
 

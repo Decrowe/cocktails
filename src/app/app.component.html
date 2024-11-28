@@ -1,6 +1,6 @@
 <div class="h-full flex flex-col justify-between overflow-hidden">
   <mat-toolbar class="shrink-0 flex justify-between">
-    <span>Cocktails</span>
+    <span>{{title() | titlecase}}</span>
     <span>
       <button mat-icon-button>
         <mat-icon>menu</mat-icon>
@@ -13,7 +13,9 @@
   </div>
 
   <mat-toolbar class="shrink-0 flex justify-center gap-8">
-
+    <button mat-icon-button [routerLink]="appRoutes.collection">
+      <mat-icon>book_2</mat-icon>
+    </button>
     <button mat-icon-button [routerLink]="appRoutes.cocktails">
       <mat-icon>local_bar</mat-icon>
     </button>

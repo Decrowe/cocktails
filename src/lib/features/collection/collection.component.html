@@ -1,0 +1,19 @@
+<mat-form-field class="w-full">
+  <mat-label>Search cocktailname..</mat-label>
+  <input matInput type="text" [formControl]="searchterm">
+</mat-form-field>
+
+<div class="overflow-scroll grow grid grid-cols-2 md:flex md:flex-wrap md:justify-around">
+  @for (cocktail of cocktails(); track cocktail.id){
+  <app-cocktail-item-collection [cocktail]="cocktail"
+    (onSelected)="toggleUsage(cocktail)"></app-cocktail-item-collection>
+  }
+</div>
+
+
+@if (collection().length; as count) {
+<div class="flex shrink-0 gap-4">
+  <button mat-raised-button (click)="clearSelection()" class="flex-1">Clear Selection</button>
+  <button mat-raised-button (click)="saveSelection()" class="flex-1" [matBadge]="count">Save</button>
+</div>
+}

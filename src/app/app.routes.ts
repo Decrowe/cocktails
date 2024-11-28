@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const AppRoutes = {
+  collection: 'collection',
   cocktails: 'cockatils',
   cart: 'cart',
   queue: 'queue',
@@ -10,6 +11,11 @@ export type AppRoute = (typeof AppRoutes)[keyof typeof AppRoutes];
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: AppRoutes.cocktails },
+  {
+    path: AppRoutes.collection,
+    loadComponent: () =>
+      import('../lib/features').then((module) => module.CollectionComponent),
+  },
   {
     path: AppRoutes.cocktails,
     loadComponent: () =>

@@ -14,7 +14,6 @@ import { Position } from '../../models';
   imports: [
     RouterLink,
     MatCardModule,
-    MatChipsModule,
     MatProgressBarModule,
     MatButtonModule,
     MatIconModule,

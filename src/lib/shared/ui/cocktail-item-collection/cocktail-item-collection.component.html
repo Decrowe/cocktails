@@ -1,0 +1,12 @@
+<div class="m-2 relative max-w-[200px] max-h-[200px] h-fit hover:shadow-lg transition"
+  (click)="onSelected.emit(cocktail().id)">
+  <img [src]="cocktail().imgSrc" class="rounded-md object-cover ">
+  <div
+    class="absolute z-20 bottom-0 left-0 right-0 h-10 bg-white/75 p-2 rounded-b-md flex items-center justify-between">
+    <span class="text-ellipsis overflow-hidden text-nowrap">{{cocktail().name }}</span>
+    <mat-checkbox [checked]="cocktail().inUse" class="scale-75"></mat-checkbox>
+  </div>
+
+  <div class="absolute z-10 rounded-md hover:bg-white/40 h-full w-full top-0"></div>
+
+</div>

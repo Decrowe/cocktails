@@ -1,12 +1,8 @@
-import {
-  inject,
-  Injectable,
-  runInInjectionContext,
-  signal,
-} from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Cocktail, Ingredient } from '../models';
-import { combineLatest, count, map, Observable } from 'rxjs';
+import { catchError, combineLatest, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Alphabete } from './alphabete';
 
 function cocktailMapper(dto: any): Cocktail {
   return {
@@ -48,25 +44,58 @@ function ingredientMapper(dto: any): Ingredient[] {
 @Injectable({ providedIn: 'root' })
 export class MockBE {
   private httpClient = inject(HttpClient);
+  private collection = signal<string[]>([]);
 
-  orders = signal<Cocktail[]>([]);
+  private allCocktailsRequests = Alphabete.map((letter) =>
+    this.httpClient
+      .get('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=' + letter)
+      .pipe(
+        map((response: any) => response['drinks']),
+        map((dtos: any[]) => dtos.map((dto) => cocktailMapper(dto))),
+        catchError(() => of([] as Cocktail[]))
+      )
+  );
+  private allCocktails$ = combineLatest(this.allCocktailsRequests).pipe(
+    map((cocktailLists: Cocktail[][]) =>
+      cocktailLists.reduce((prev, curr) => [...prev, ...curr])
+    )
+  );
+  private allCocktails = signal<Cocktail[]>([]);
+
+  constructor() {
+    this.allCocktails$.subscribe((cockails) => {
+      this.allCocktails.set(cockails);
+      console.log(`Found ${cockails.length} Cocktails:`);
+      console.log(cockails);
+    });
+  }
+
+  findCocktails(term: string): Observable<Cocktail[]> {
+    return of(
+      this.allCocktails().filter((cocktail) =>
+        cocktail.name
+          .replaceAll(' ', '')
+          .toUpperCase()
+          .includes(term.replaceAll(' ', '').toUpperCase())
+      )
+    );
+  }
+
+  saveCollection(cocktailIds: string[]) {
+    this.collection.set([...cocktailIds]);
+  }
+
+  clearCollection() {
+    this.collection.set([]);
+  }
+
+  getCocktails(): Observable<Cocktail[]> {
+    return of(
+      this.allCocktails().filter(({ id }) => this.collection().includes(id))
+    );
+  }
 
   sendOrders(cocktails: Cocktail[]) {
     throw new Error('Method not implemented.');
-  }
-
-  getCocktails(count: number): Observable<Cocktail[]> {
-    const requests = Array(count)
-      .fill(0)
-      .map(() =>
-        this.httpClient
-          .get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-          .pipe(
-            map((response: any) => response['drinks'][0]),
-            map((dto) => cocktailMapper(dto))
-          )
-      );
-
-    return combineLatest(requests);
   }
 }
