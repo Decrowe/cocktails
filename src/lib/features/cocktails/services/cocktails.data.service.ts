@@ -1,15 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { CocktailsService } from '../../../../api';
+import { CocktailMapper } from '../../../shared';
+import { Cocktail } from '../../../shared/models';
 import { ICocktailsDataService } from './cocktails.data.interface';
-import { Cocktail, NewOrder } from '../../../shared/models';
-import { OrderCocktail } from '../../../shared/models/queue';
 
 @Injectable({ providedIn: 'root' })
 export class CocktailsDataService implements ICocktailsDataService {
-  sendOrder(order: NewOrder): void {
-    throw new Error('Method not implemented.');
-  }
+  private dataService = inject(CocktailsService);
+
   getCocktails(): Observable<Cocktail[]> {
-    return of([]);
+    return this.dataService
+      .getCocktails()
+      .pipe(map((DTOs) => DTOs.map((DTO) => CocktailMapper.from(DTO))));
   }
 }
