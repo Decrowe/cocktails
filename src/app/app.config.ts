@@ -1,27 +1,28 @@
+import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   isDevMode,
   Provider,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
+import { BASE_PATH } from '../api';
 import {
-  CocktailsDataServiceIT,
-  CocktailsDataMockService,
-  CocktailsDataService,
-  CollectionDataServiceIT,
-  CollectionDataMockService,
-  CollectionDataService,
-  QueueDataServiceIT,
-  QueueDataMockService,
-  QueueDataService,
-  CartDataServiceIT,
   CartDataMockService,
   CartDataService,
+  CartDataServiceIT,
+  CocktailsDataMockService,
+  CocktailsDataService,
+  CocktailsDataServiceIT,
+  CollectionDataMockService,
+  CollectionDataService,
+  CollectionDataServiceIT,
+  QueueDataMockService,
+  QueueDataService,
+  QueueDataServiceIT,
 } from '../lib/features';
+import { routes } from './app.routes';
 
 const appProviders: Provider[] = [
   {
@@ -52,5 +53,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     appProviders,
     provideAnimationsAsync(),
+    { provide: BASE_PATH, useValue: 'http://localhost:3000' },
   ],
 };

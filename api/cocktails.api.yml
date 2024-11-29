@@ -1,0 +1,161 @@
+openapi: 3.0.0
+paths:
+  /cocktails:
+    get:
+      operationId: getCocktails
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CocktailDto"
+      tags:
+        - Cocktails
+  /cocktails/{searchterm}:
+    get:
+      operationId: searchCocktails
+      parameters:
+        - name: searchterm
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CocktailDto"
+      tags:
+        - Cocktails
+  /collection:
+    post:
+      operationId: saveCollection
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CollectionDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - Collection
+    delete:
+      operationId: clearCollection
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - Collection
+  /orders:
+    post:
+      operationId: addOrder
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - Orders
+info:
+  title: Cocktails API
+  description: Make Collections, Order Cocktails, Process Orders
+  version: "1.0"
+  contact: {}
+tags:
+  - name: Collection
+    description: ""
+  - name: Cocktails
+    description: ""
+  - name: Queue
+    description: ""
+servers: []
+components:
+  schemas:
+    Ingredient:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: string
+      required:
+        - name
+        - quantity
+    CocktailDto:
+      type: object
+      properties:
+        imgSrc:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ingredient"
+      required:
+        - id
+        - name
+        - ingredients
+    CollectionDto:
+      type: object
+      properties:
+        cocktailIds:
+          description: Overrides current collection of Cocktail ids
+          type: array
+          items:
+            type: string
+      required:
+        - cocktailIds
+    OrderItemDto:
+      type: object
+      properties:
+        cocktailId:
+          type: string
+        count:
+          type: string
+      required:
+        - cocktailId
+        - count
+    CreateOrderDto:
+      type: object
+      properties:
+        orderer:
+          type: string
+        orderitems:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItemDto"
+      required:
+        - orderer
+        - orderitems
