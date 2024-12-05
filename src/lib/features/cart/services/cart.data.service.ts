@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { OrdersService } from '../../../../api';
+import { NewOrder, NewOrderMapper } from '../../../shared';
 import { ICartDataService } from './cart.data.interface';
-import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartDataService implements ICartDataService {
-  sendOrder(): Observable<void> {
-    throw new Error('Method not implemented.');
+  private _ordersService = inject(OrdersService);
+
+  sendOrder(newOrder: NewOrder) {
+    const createOrderDTO = NewOrderMapper.to(newOrder);
+    return this._ordersService.addOrder(createOrderDTO);
   }
 }

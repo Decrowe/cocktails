@@ -9,8 +9,8 @@
  */
 
 
-export interface OrderItemDto { 
+export interface CreateOrderItemDto { 
     cocktailId: string;
-    count: string;
+    count: number;
 }
 

@@ -7,13 +7,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Ingredient } from './ingredient';
+import { IngredientDto } from './ingredientDto';
 
 
 export interface CocktailDto { 
-    imgSrc?: string;
     id: string;
     name: string;
-    ingredients: Array<Ingredient>;
+    imgSrc?: string;
+    ingredients: Array<IngredientDto>;
 }
 
