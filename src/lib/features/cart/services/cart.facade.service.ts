@@ -1,8 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { findIndex, first } from 'rxjs';
 import { Cocktail, Position } from '../../../shared';
-import { CartDataServiceIT } from './cart.data.injection-token';
 import { OrderCocktail } from '../../../shared/models/queue';
+import { CartDataServiceIT } from './cart.data.injection-token';
 
 @Injectable({ providedIn: 'root' })
 export class CartFacade {

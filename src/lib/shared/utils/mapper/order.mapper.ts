@@ -1,7 +1,8 @@
 import { CreateOrderDto, CreateOrderItemDto } from '../../../../api';
+import { OrderDto, OrderItemDto } from '../../../../api/manual-added-models';
 import { NewOrder } from '../../models';
-import { OrderCocktail } from '../../models/queue';
-import { MapperTo } from './mapper.base';
+import { Order, OrderCocktail } from '../../models/queue';
+import { MapperFrom, MapperTo } from './mapper.base';
 
 export const NewOrderMapper: MapperTo<NewOrder, CreateOrderDto> = {
   to: (model) => {
@@ -18,3 +19,22 @@ export const OrderCocktailMapper: MapperTo<OrderCocktail, CreateOrderItemDto> =
       return { cocktailId: id, count };
     },
   };
+
+export const OrderMapper: MapperFrom<OrderDto, Order> = {
+  from: function (dto: OrderDto): Order {
+    const { id, orderer, timestamp, items } = dto;
+    return {
+      id,
+      orderer,
+      timestamp,
+      cocktails: items.map((item) => OrderItemMapper.from(item)),
+    };
+  },
+};
+
+export const OrderItemMapper: MapperFrom<OrderItemDto, OrderCocktail> = {
+  from: function (dto: OrderItemDto): OrderCocktail {
+    const { cocktailId, cocktailName, count } = dto;
+    return { id: cocktailId, count, name: cocktailName };
+  },
+};
