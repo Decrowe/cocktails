@@ -1,20 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { IQueueDataService } from './queue.data.interface';
+import { EMPTY, Observable } from 'rxjs';
+import { CompleteOrderState } from '../../../../api/manual-added-models';
 import { MockBE } from '../../../shared';
-import { EMPTY, Observable, of } from 'rxjs';
-import { Order, RejectReason } from '../../../shared/models/queue';
+import { Order } from '../../../shared/models/queue';
+import { IQueueDataService } from './queue.data.interface';
 
 @Injectable({ providedIn: 'root' })
 export class QueueDataMockService implements IQueueDataService {
   private mockBE = inject(MockBE);
   orders$: Observable<Order[]> = this.mockBE.orders$;
 
-  orderCompleted(order: Order): Observable<void> {
+  orderCompleted(
+    order: Order,
+    state: CompleteOrderState,
+    messages: string[]
+  ): Observable<void> {
     this.mockBE.orderCompleted(order);
-    return EMPTY;
-  }
-  orderRejected(order: Order, rejectReason: RejectReason): Observable<void> {
-    this.mockBE.orderRejected(order, rejectReason);
     return EMPTY;
   }
 }
