@@ -2,7 +2,7 @@ openapi: 3.0.0
 paths:
   /cocktails:
     get:
-      operationId: getCocktails
+      operationId: findAll
       parameters: []
       responses:
         "200":
@@ -17,7 +17,7 @@ paths:
         - Cocktails
   /cocktails/{searchterm}:
     get:
-      operationId: searchCocktails
+      operationId: search
       parameters:
         - name: searchterm
           required: true
@@ -79,10 +79,6 @@ paths:
       responses:
         "201":
           description: ""
-          content:
-            application/json:
-              schema:
-                type: string
       tags:
         - Orders
 info:
@@ -100,7 +96,7 @@ tags:
 servers: []
 components:
   schemas:
-    Ingredient:
+    IngredientDto:
       type: object
       properties:
         name:
@@ -113,16 +109,16 @@ components:
     CocktailDto:
       type: object
       properties:
-        imgSrc:
-          type: string
         id:
           type: string
         name:
           type: string
+        imgSrc:
+          type: string
         ingredients:
           type: array
           items:
-            $ref: "#/components/schemas/Ingredient"
+            $ref: "#/components/schemas/IngredientDto"
       required:
         - id
         - name
@@ -137,13 +133,13 @@ components:
             type: string
       required:
         - cocktailIds
-    OrderItemDto:
+    CreateOrderItemDto:
       type: object
       properties:
         cocktailId:
           type: string
         count:
-          type: string
+          type: number
       required:
         - cocktailId
         - count
@@ -152,10 +148,10 @@ components:
       properties:
         orderer:
           type: string
-        orderitems:
+        items:
           type: array
           items:
-            $ref: "#/components/schemas/OrderItemDto"
+            $ref: "#/components/schemas/CreateOrderItemDto"
       required:
         - orderer
-        - orderitems
+        - items

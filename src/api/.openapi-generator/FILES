@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
@@ -13,8 +12,8 @@ index.ts
 model/cocktailDto.ts
 model/collectionDto.ts
 model/createOrderDto.ts
-model/ingredient.ts
+model/createOrderItemDto.ts
+model/ingredientDto.ts
 model/models.ts
-model/orderItemDto.ts
 param.ts
 variables.ts
