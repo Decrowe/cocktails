@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Cocktail, Ingredient } from '../models';
 import {
   BehaviorSubject,
   catchError,
@@ -7,12 +7,11 @@ import {
   map,
   Observable,
   of,
-  Subject,
 } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Alphabete } from './alphabete';
-import { Order, OrderCocktail } from '../models/queue';
+import { Cocktail, Ingredient } from '../models';
 import { NewOrder } from '../models/cocktail/new-order';
+import { Order } from '../models/queue';
+import { Alphabete } from './alphabete';
 
 function cocktailMapper(dto: any): Cocktail {
   return {
@@ -78,8 +77,7 @@ export class MockBE {
   constructor() {
     this.allCocktails$.subscribe((cockails) => {
       this.allCocktails.set(cockails);
-      console.log(`Found ${cockails.length} Cocktails:`);
-      console.log(cockails);
+      console.log(`Found ${cockails.length} Cocktails`);
     });
   }
 
@@ -114,7 +112,7 @@ export class MockBE {
     const { cocktails, orderer } = order;
     const id = `${orders.length + 1}`;
 
-    const newOrder: Order = { cocktails, orderer, id };
+    const newOrder: Order = { cocktails, orderer, id, timestamp: new Date() };
     this._orders.next([...orders, newOrder]);
   }
 

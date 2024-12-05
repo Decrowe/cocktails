@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { CocktailsDataServiceIT } from './cocktails.data.injection-token';
 import { first } from 'rxjs';
 import { Cocktail } from '../../../shared';
+import { CocktailsDataServiceIT } from './cocktails.data.injection-token';
 
 @Injectable({ providedIn: 'root' })
 export class CocktailsFacade {
@@ -14,8 +14,6 @@ export class CocktailsFacade {
   }
 
   fetchCocktails() {
-    console.log('fetching cocktails now..');
-
     this.dataService
       .getCocktails()
       .pipe(first())

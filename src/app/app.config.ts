@@ -12,13 +12,11 @@ import {
   CartDataMockService,
   CartDataService,
   CartDataServiceIT,
-  CocktailsDataMockService,
   CocktailsDataService,
   CocktailsDataServiceIT,
   CollectionDataMockService,
   CollectionDataService,
   CollectionDataServiceIT,
-  QueueDataMockService,
   QueueDataService,
   QueueDataServiceIT,
 } from '../lib/features';
@@ -27,7 +25,8 @@ import { routes } from './app.routes';
 const appProviders: Provider[] = [
   {
     provide: CocktailsDataServiceIT,
-    useExisting: isDevMode() ? CocktailsDataMockService : CocktailsDataService,
+    useExisting: isDevMode() ? CocktailsDataService : CocktailsDataService,
+    // useExisting: isDevMode() ? CocktailsDataMockService : CocktailsDataService,
   },
   {
     provide: CollectionDataServiceIT,
@@ -37,7 +36,8 @@ const appProviders: Provider[] = [
   },
   {
     provide: QueueDataServiceIT,
-    useExisting: isDevMode() ? QueueDataMockService : QueueDataService,
+    useExisting: isDevMode() ? QueueDataService : QueueDataService,
+    // useExisting: isDevMode() ? QueueDataMockService : QueueDataService,
   },
   {
     provide: CartDataServiceIT,
