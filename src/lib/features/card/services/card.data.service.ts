@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ICollectionDataService } from './collection.data.interface';
 import { Observable, of } from 'rxjs';
 import { Cocktail } from '../../../shared';
+import { ICardDataService } from './card.data.interface';
 
 @Injectable({ providedIn: 'root' })
-export class CollectionDataService implements ICollectionDataService {
+export class CardDataService implements ICardDataService {
   getAllCocktails(): Observable<Cocktail[]> {
     throw new Error('Method not implemented.');
   }
-  clearCollection(): Observable<void> {
+  clearCard(): Observable<void> {
     throw new Error('Method not implemented.');
   }
-  saveCollection(cocktailIds: string[]): Observable<void> {
+  saveCard(cocktailIds: string[]): Observable<void> {
     throw new Error('Method not implemented.');
   }
   search(term: string): Observable<Cocktail[]> {

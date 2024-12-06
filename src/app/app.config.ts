@@ -15,13 +15,13 @@ import {
   CocktailsDataMockService,
   CocktailsDataService,
   CocktailsDataServiceIT,
-  CollectionDataMockService,
-  CollectionDataService,
-  CollectionDataServiceIT,
   QueueDataMockService,
   QueueDataService,
   QueueDataServiceIT,
 } from '../lib/features';
+import { CardDataServiceIT } from '../lib/features/card/services/card.data.injection-token';
+import { CardDataMockService } from '../lib/features/card/services/card.data.mock.service';
+import { CardDataService } from '../lib/features/card/services/card.data.service';
 import { routes } from './app.routes';
 
 const ApiBasePath: Provider = {
@@ -35,10 +35,8 @@ const appProviders: Provider[] = [
     useExisting: isDevMode() ? CocktailsDataMockService : CocktailsDataService,
   },
   {
-    provide: CollectionDataServiceIT,
-    useExisting: isDevMode()
-      ? CollectionDataMockService
-      : CollectionDataService,
+    provide: CardDataServiceIT,
+    useExisting: isDevMode() ? CardDataMockService : CardDataService,
   },
   {
     provide: QueueDataServiceIT,

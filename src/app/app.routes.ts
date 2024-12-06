@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
 export const AppRoutes = {
-  collection: 'collection',
-  cocktails: 'cockatils',
+  collection: 'card',
+  cocktails: 'cocktails',
   cart: 'cart',
   queue: 'queue',
 } as const;
@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: AppRoutes.collection,
     loadComponent: () =>
-      import('../lib/features').then((module) => module.CollectionComponent),
+      import('../lib/features').then((module) => module.CardComponent),
   },
   {
     path: AppRoutes.cocktails,

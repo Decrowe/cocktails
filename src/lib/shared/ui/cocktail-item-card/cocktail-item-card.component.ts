@@ -4,20 +4,20 @@ import {
   input,
   output,
 } from '@angular/core';
-import { InUseCocktail } from '../../models';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { InUseCocktail } from '../../models';
 
 @Component({
-  selector: 'app-cocktail-item-collection',
+  selector: 'app-cocktail-item-card',
   imports: [MatCardModule, MatButtonModule, MatIconModule, MatCheckboxModule],
-  templateUrl: './cocktail-item-collection.component.html',
-  styleUrl: './cocktail-item-collection.component.scss',
+  templateUrl: './cocktail-item-card.component.html',
+  styleUrl: './cocktail-item-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CocktailItemCollectionComponent {
+export class CocktailItemCardComponent {
   cocktail = input.required<InUseCocktail>();
   onSelected = output<string>();
 }

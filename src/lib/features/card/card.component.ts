@@ -1,21 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { filter } from 'rxjs';
-import { CollectionFacade } from './services/collection.facade.service';
-import { MatCardModule } from '@angular/material/card';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { CocktailItemCollectionComponent, InUseCocktail } from '../../shared';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CommonModule } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CocktailItemCardComponent, InUseCocktail } from '../../shared';
+import { CardFacade } from './services/card.facade.service';
 
 @Component({
-  selector: 'app-collection',
+  selector: 'app-card',
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -27,20 +24,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatCardModule,
     MatExpansionModule,
     MatBadgeModule,
-    CocktailItemCollectionComponent,
+    CocktailItemCardComponent,
   ],
-  templateUrl: './collection.component.html',
-  styleUrl: './collection.component.scss',
+  templateUrl: './card.component.html',
+  styleUrl: './card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CollectionComponent {
-  private facade = inject(CollectionFacade);
+export class CardComponent {
+  private facade = inject(CardFacade);
 
   checked = true;
 
   searchterm = new FormControl<string>('');
   cocktails = this.facade.cocktails;
-  collection = this.facade.collection;
+  card = this.facade.card;
 
   constructor() {
     this.searchterm.valueChanges

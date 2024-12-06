@@ -56,7 +56,7 @@ export class MockBE {
   orders$: Observable<Order[]> = this._orders.asObservable();
 
   private httpClient = inject(HttpClient);
-  private collection = signal<string[]>([]);
+  private card = signal<string[]>([]);
 
   private allCocktailsRequests = Alphabete.map((letter) =>
     this.httpClient
@@ -92,18 +92,16 @@ export class MockBE {
     );
   }
 
-  saveCollection(cocktailIds: string[]) {
-    this.collection.set([...cocktailIds]);
+  saveCard(cocktailIds: string[]) {
+    this.card.set([...cocktailIds]);
   }
 
-  clearCollection() {
-    this.collection.set([]);
+  clearCard() {
+    this.card.set([]);
   }
 
   getCocktails(): Observable<Cocktail[]> {
-    return of(
-      this.allCocktails().filter(({ id }) => this.collection().includes(id))
-    );
+    return of(this.allCocktails().filter(({ id }) => this.card().includes(id)));
   }
 
   sendOrder(order: NewOrder) {
