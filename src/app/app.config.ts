@@ -24,6 +24,11 @@ import {
 } from '../lib/features';
 import { routes } from './app.routes';
 
+const ApiBasePath: Provider = {
+  provide: BASE_PATH,
+  useValue: 'http://192.168.178.99:3000',
+};
+
 const appProviders: Provider[] = [
   {
     provide: CocktailsDataServiceIT,
@@ -51,8 +56,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
-    appProviders,
     provideAnimationsAsync(),
-    { provide: BASE_PATH, useValue: 'http://localhost:3000' },
+    appProviders,
+    ApiBasePath,
   ],
 };
