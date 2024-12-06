@@ -2,14 +2,15 @@
   "name": "cocktails",
   "version": "0.0.0",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "launch": "pnpx http-server -p 8080 -c-1 dist/cocktails/browser",
     "ng": "ng",
     "start": "ng serve",
+    "start local": "ng serve --host 0.0.0.0",
+    "launch": "pnpx http-server -p 8080 -c-1 dist/cocktails/browser",
     "build": "ng build",
-    "generate-api-services": "openapi-generator-cli generate -g typescript-angular -o src/api -i api/cocktails.api.yml",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate-api-services": "openapi-generator-cli generate -g typescript-angular -o src/api -i api/cocktails.api.yml",
+    "preinstall": "npx only-allow pnpm"
   },
   "private": true,
   "dependencies": {
