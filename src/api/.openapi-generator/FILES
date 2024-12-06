@@ -2,15 +2,14 @@
 README.md
 api.module.ts
 api/api.ts
+api/card.service.ts
 api/cocktails.service.ts
-api/collection.service.ts
 api/orders.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
 model/cocktailDto.ts
-model/collectionDto.ts
 model/createOrderDto.ts
 model/createOrderItemDto.ts
 model/ingredientDto.ts
