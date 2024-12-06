@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { Cocktail } from '../../../shared';
 
-export interface ICollectionDataService {
+export interface ICardDataService {
   search(term: string): Observable<Cocktail[]>;
   getAllCocktails(): Observable<Cocktail[]>;
 
-  clearCollection(): Observable<void>;
-  saveCollection(cocktailIds: string[]): Observable<void>;
+  clearCard(): Observable<void>;
+  saveCard(cocktailIds: string[]): Observable<void>;
 }

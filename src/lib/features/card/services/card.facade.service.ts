@@ -1,20 +1,12 @@
-import { computed, inject, Injectable, signal, untracked } from '@angular/core';
-import { CollectionDataServiceIT } from './collection.data.injection-token';
-import {
-  BehaviorSubject,
-  debounceTime,
-  filter,
-  first,
-  startWith,
-  switchMap,
-} from 'rxjs';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
 import { Cocktail, InUseCocktail } from '../../../shared';
-import { computeMsgId } from '@angular/compiler';
+import { CardDataServiceIT } from './card.data.injection-token';
 
 @Injectable({ providedIn: 'root' })
-export class CollectionFacade {
-  private dataService = inject(CollectionDataServiceIT);
+export class CardFacade {
+  private dataService = inject(CardDataServiceIT);
   private searchterm = new BehaviorSubject<string | null>(null);
   private foundCocktails$ = this.searchterm.asObservable().pipe(
     debounceTime(150),
@@ -27,11 +19,11 @@ export class CollectionFacade {
   private cocktailResults = toSignal(this.foundCocktails$, {
     initialValue: [],
   });
-  collection = signal<string[]>([]);
+  card = signal<string[]>([]);
 
   cocktails = computed(() => {
     const cocktailResults = this.cocktailResults();
-    const selected = this.collection();
+    const selected = this.card();
 
     return cocktailResults.map((result) => {
       const inUse = selected.includes(result.id);
@@ -40,16 +32,16 @@ export class CollectionFacade {
   });
 
   private use(cocktail: Cocktail) {
-    const selected = this.collection();
+    const selected = this.card();
     if (selected.includes(cocktail.id)) return;
 
     selected.push(cocktail.id);
-    this.collection.set([...selected]);
+    this.card.set([...selected]);
   }
 
   private unuse(cocktail: Cocktail) {
-    const filtered = this.collection().filter((id) => id !== cocktail.id);
-    this.collection.set([...filtered]);
+    const filtered = this.card().filter((id) => id !== cocktail.id);
+    this.card.set([...filtered]);
   }
 
   search(term: string | null) {
@@ -61,11 +53,11 @@ export class CollectionFacade {
   }
 
   clearSelection() {
-    this.collection.set([]);
-    this.dataService.clearCollection();
+    this.card.set([]);
+    this.dataService.clearCard();
   }
 
   saveSelection() {
-    this.dataService.saveCollection(this.collection());
+    this.dataService.saveCard(this.card());
   }
 }

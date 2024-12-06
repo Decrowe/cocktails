@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { ICollectionDataService } from './collection.data.interface';
 import { Observable, of } from 'rxjs';
 import { Cocktail, MockBE } from '../../../shared';
+import { ICardDataService } from './card.data.interface';
 
 @Injectable({ providedIn: 'root' })
-export class CollectionDataMockService implements ICollectionDataService {
+export class CardDataMockService implements ICardDataService {
   getAllCocktails(): Observable<Cocktail[]> {
     return this.mockBE.getCocktails();
   }
@@ -14,13 +14,13 @@ export class CollectionDataMockService implements ICollectionDataService {
     return this.mockBE.findCocktails(term);
   }
 
-  clearCollection(): Observable<void> {
-    this.mockBE.clearCollection();
+  clearCard(): Observable<void> {
+    this.mockBE.clearCard();
     return of();
   }
 
-  saveCollection(cocktailIds: string[]): Observable<void> {
-    this.mockBE.saveCollection(cocktailIds);
+  saveCard(cocktailIds: string[]): Observable<void> {
+    this.mockBE.saveCard(cocktailIds);
     return of();
   }
 }
