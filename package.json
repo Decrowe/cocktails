@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start production": "ng serve --configuration production",
     "start local": "ng serve --host 0.0.0.0",
-    "launch": "pnpx http-server -p 8080 -c-1 dist/cocktails/browser",
+    "start local production ": "ng serve --host 0.0.0.0 --configuration production",
+    "launch": "ng build && pnpx http-server -p 8080 -c-1 dist/cocktails/browser",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
