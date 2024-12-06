@@ -2,7 +2,22 @@ openapi: 3.0.0
 paths:
   /cocktails:
     get:
-      operationId: findAll
+      operationId: getAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CocktailDto"
+      tags:
+        - Cocktails
+  /cocktails/card:
+    get:
+      operationId: getCard
       parameters: []
       responses:
         "200":
@@ -35,37 +50,31 @@ paths:
                   $ref: "#/components/schemas/CocktailDto"
       tags:
         - Cocktails
-  /collection:
+  /card:
     post:
-      operationId: saveCollection
+      operationId: saveCard
       parameters: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CollectionDto"
+              type: array
+              items:
+                type: string
       responses:
         "201":
           description: ""
-          content:
-            application/json:
-              schema:
-                type: string
       tags:
-        - Collection
+        - Card
     delete:
-      operationId: clearCollection
+      operationId: clearCard
       parameters: []
       responses:
         "200":
           description: ""
-          content:
-            application/json:
-              schema:
-                type: string
       tags:
-        - Collection
+        - Card
   /orders:
     post:
       operationId: addOrder
@@ -123,16 +132,6 @@ components:
         - id
         - name
         - ingredients
-    CollectionDto:
-      type: object
-      properties:
-        cocktailIds:
-          description: Overrides current collection of Cocktail ids
-          type: array
-          items:
-            type: string
-      required:
-        - cocktailIds
     CreateOrderItemDto:
       type: object
       properties:
