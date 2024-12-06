@@ -11,7 +11,7 @@ export class CocktailsDataService implements ICocktailsDataService {
 
   getCocktails(): Observable<Cocktail[]> {
     return this.dataService
-      .getAll()
+      .getCard()
       .pipe(map((dtos) => dtos.map((dto) => CocktailMapper.from(dto))));
   }
 }
