@@ -53,11 +53,10 @@ export class CardFacade {
   }
 
   clearSelection() {
-    this.card.set([]);
-    this.dataService.clearCard();
+    this.dataService.clearCard().subscribe(() => this.card.set([]));
   }
 
   saveSelection() {
-    this.dataService.saveCard(this.card());
+    this.dataService.saveCard(this.card()).subscribe();
   }
 }
