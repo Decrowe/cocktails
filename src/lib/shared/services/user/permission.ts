@@ -30,7 +30,7 @@ export type Permission =
 export const Permissions = {
   Barkeeper: [
     PermissionsNavigate.card,
-    PermissionsNavigate.cart,
+    PermissionsNavigate.cocktails,
     PermissionsNavigate.queue,
     PermissionsQueue.rejectOrder,
     PermissionsQueue.completeOrder,
@@ -42,5 +42,3 @@ export const Permissions = {
     PermissionsCocktails.addCocktail,
   ],
 } as const;
-
-export type Role = keyof typeof Permissions;

@@ -1,29 +1,59 @@
-<div class="h-full flex flex-col justify-between overflow-hidden">
-  <mat-toolbar class="shrink-0 flex justify-between">
-    <span>{{title() | titlecase}}</span>
-    <span>
-      <button mat-icon-button>
-        <mat-icon>menu</mat-icon>
-      </button>
-    </span>
-  </mat-toolbar>
+@if (user.loggedIn()) {
+<ng-container [ngTemplateOutlet]="LoggedIn"></ng-container>
+} @else {
+<ng-container [ngTemplateOutlet]="LoggedOut"></ng-container>
+}
 
-  <div class="flex-grow overflow-auto ">
-    <router-outlet></router-outlet>
+<ng-template #LoggedIn>
+  <div class="h-full flex flex-col justify-between overflow-hidden">
+    <mat-toolbar class="shrink-0 flex justify-between">
+      <span>{{title() | titlecase}}</span>
+      <div class="flex items-center justify-end gap-2">
+        <div class="flex flex-col max-h-full items-end">
+          <span class="title-medium">{{user.name()}}</span>
+          <span class="title-small">{{user.role()}}</span>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+
+    <div class="flex-grow overflow-auto ">
+      <router-outlet></router-outlet>
+    </div>
+
+    <mat-toolbar class="shrink-0 flex justify-center gap-8">
+      @if (user.hasPermission('NavigateCard')) {
+      <button mat-icon-button [routerLink]="appRoutes.collection">
+        <mat-icon>book_2</mat-icon>
+      </button>
+      }
+      @if (user.hasPermission('NavigateCocktails')) {
+      <button mat-icon-button [routerLink]="appRoutes.cocktails">
+        <mat-icon>local_bar</mat-icon>
+      </button>
+      }
+      @if (user.hasPermission('NavigateCart')) {
+      <button mat-icon-button [routerLink]="appRoutes.cart" [matBadge]="cartCount()" [matBadgeHidden]="!cartCount()">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      }
+      @if (user.hasPermission('NavigateQueue')) {
+      <button mat-icon-button [routerLink]="appRoutes.queue" [matBadge]="queueCount()" [matBadgeHidden]="!queueCount()">
+        <mat-icon>list</mat-icon>
+      </button>
+      }
+    </mat-toolbar>
   </div>
 
-  <mat-toolbar class="shrink-0 flex justify-center gap-8">
-    <button mat-icon-button [routerLink]="appRoutes.collection">
-      <mat-icon>book_2</mat-icon>
-    </button>
-    <button mat-icon-button [routerLink]="appRoutes.cocktails">
-      <mat-icon>local_bar</mat-icon>
-    </button>
-    <button mat-icon-button [routerLink]="appRoutes.cart" [matBadge]="cartCount()" [matBadgeHidden]="!cartCount()">
-      <mat-icon>shopping_cart</mat-icon>
-    </button>
-    <button mat-icon-button [routerLink]="appRoutes.queue" [matBadge]="queueCount()" [matBadgeHidden]="!queueCount()">
-      <mat-icon>list</mat-icon>
-    </button>
-  </mat-toolbar>
-</div>
+
+  <mat-menu #accountMenu="matMenu">
+    <button mat-menu-item (click)="user.logOut()"><mat-icon>logout</mat-icon><span>Logout</span></button>
+  </mat-menu>
+
+</ng-template>
+
+<ng-template #LoggedOut>
+  <app-login></app-login>
+</ng-template>

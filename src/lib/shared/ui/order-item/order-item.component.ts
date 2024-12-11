@@ -1,12 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   input,
   output,
 } from '@angular/core';
-import { Order, RejectReason, RejectReasons } from '../../models/queue';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Order, RejectReason, RejectReasons } from '../../models/queue';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-order-item',
@@ -16,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderItemComponent {
+  user = inject(UserService);
   rejectResons = RejectReasons;
 
   order = input.required<Order>();
