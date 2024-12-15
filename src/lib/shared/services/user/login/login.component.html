@@ -1,0 +1,39 @@
+@if (loggedIn()) {
+<ng-container [ngTemplateOutlet]="LoggedIn"></ng-container>
+} @else {
+<ng-container [ngTemplateOutlet]="LoggedOut"></ng-container>
+}
+
+<ng-template #LoggedIn>
+  <button mat-raised-button (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
+</ng-template>
+
+<ng-template #LoggedOut>
+  <div class="login">
+    <h1 class="title">{{"sign in" | uppercase}}</h1>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input [formControl]="usernameControl" matInput type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <mat-select [value]="role()" (valueChange)="role.set($event)">
+        @for (role of roleValues; track role) {
+        <mat-option [value]="role">{{role}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @if (role() === roles.barkeeper) {
+    <mat-form-field>
+      <mat-label>Barkeeper´s Secret</mat-label>
+      <input [formControl]="secretControl" matInput type="text">
+    </mat-form-field>
+    }
+
+    <button mat-raised-button [disabled]="!loginValid()" (click)="login()"><mat-icon>login</mat-icon> Login</button>
+
+    @if (loggingIn()) {
+    <mat-spinner></mat-spinner>
+    }
+  </div>
+</ng-template>

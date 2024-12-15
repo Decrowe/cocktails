@@ -1,4 +1,4 @@
-import { UpperCasePipe } from '@angular/common';
+import { CommonModule, UpperCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,12 +15,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { filter } from 'rxjs';
-import { Role, Roles } from '../../services/user';
-import { UserService } from '../../services/user/user.service';
+import { Role, Roles } from '../role';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
   imports: [
+    CommonModule,
     UpperCasePipe,
     MatFormFieldModule,
     MatInputModule,
@@ -36,6 +37,7 @@ import { UserService } from '../../services/user/user.service';
 })
 export class LoginComponent {
   user = inject(UserService);
+  loggedIn = this.user.loggedIn;
   roles = Roles;
   roleValues = Object.values(this.roles);
 
@@ -75,5 +77,9 @@ export class LoginComponent {
     const role = this.role();
 
     this.user.logIn(user, role, secret);
+  }
+
+  logout() {
+    this.user.logOut();
   }
 }

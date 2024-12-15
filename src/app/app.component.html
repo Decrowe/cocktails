@@ -25,7 +25,7 @@
 
     <mat-toolbar class="shrink-0 flex justify-center gap-8">
       @if (user.hasPermission('NavigateCard')) {
-      <button mat-icon-button [routerLink]="appRoutes.collection">
+      <button mat-icon-button [routerLink]="appRoutes.card">
         <mat-icon>book_2</mat-icon>
       </button>
       }
@@ -55,5 +55,5 @@
 </ng-template>
 
 <ng-template #LoggedOut>
-  <app-login></app-login>
+  <router-outlet></router-outlet>
 </ng-template>

@@ -1,14 +1,12 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
 
   padding: 2rem;
-  background-image: url(https://img.freepik.com/premium-photo/blurred-background-restaurant-bar-interior-with-wooden-table-vertical-mobile-wallpaper_892776-5203.jpg);
-  background-size: cover;
 }
 
 .login {

@@ -16,7 +16,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--mat-sys-surface-container-lowest);
+  background-image: url(https://img.freepik.com/premium-photo/blurred-background-restaurant-bar-interior-with-wooden-table-vertical-mobile-wallpaper_892776-5203.jpg);
+  background-size: cover;
 }
 
 @include hide-scrollbar.HideScrollbar;

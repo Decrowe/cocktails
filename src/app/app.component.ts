@@ -10,7 +10,6 @@ import { Event, Router, RouterEvent, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
 import { CartFacade } from '../lib/features/cart/services/cart.facade.service';
 import { QueueFacade } from '../lib/features/queue/services/queue.facade.service';
-import { LoginComponent } from '../lib/shared';
 import { UserService } from '../lib/shared/services/user/user.service';
 import { AppRoutes } from './app.routes';
 @Component({
@@ -23,7 +22,6 @@ import { AppRoutes } from './app.routes';
     MatButtonModule,
     MatIconModule,
     MatBadgeModule,
-    LoginComponent,
     MatMenuModule,
   ],
   templateUrl: './app.component.html',
